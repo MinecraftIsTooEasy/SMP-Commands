@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "smpmod",
+  "version": "${version}",
+
+  "name": "Multiplayer Commands",
+  "description": "Adds new commands to enliven the BTW multiplayer experience.",
+  "authors": [
+    "B, Cubed"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/BTW-Community"
+  },
+
+  "license": "TOTALLY FREE FOR THE WORLD TO USE!",
+
+  "environment": "*",
+  "entrypoints": {},
+  "mixins": [
+    "smpmod.mixin.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

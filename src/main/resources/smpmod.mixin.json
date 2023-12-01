@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "btw.community.SMPMod.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "EntityPlayerMPMixin"
+  ],
+  "client": [
+    "EntityPlayerMPMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
