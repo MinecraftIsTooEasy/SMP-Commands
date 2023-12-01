@@ -1,0 +1,11 @@
+Started SMP-Commands-CE on November 28, 2023
+(also known as SMP Mod or Multiplayer Commands Mod)
+~!~!~!~!~
+This mod acts as a server-side plugin, clients connecting to the server do not need to install this to access its functionality!
+
+Version 1.0:
+
+- Added three new player-to-player teleportation commands: /tpa [playername], /tpaccept [playername], and /tpcancel
+    > These can be used without op permissions, allowing players to manage their own teleports without needing to call an admin
+
+- Added a new config file, SMPMod.properties, that lets server hosts disable the tpa commands
