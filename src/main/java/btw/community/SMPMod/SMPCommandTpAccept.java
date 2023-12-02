@@ -96,7 +96,7 @@ public class SMPCommandTpAccept extends CommandBase
 
 //                    acceptingPlayer.setEntityHealth(acceptingPlayer.getHealth()-10);
                     acceptingPlayer.attackEntityFrom(DamageSource.generic, 10);
-                    teleportingPlayer.attackEntityFrom(DamageSource.generic, 0);
+                    teleportingPlayer.setEntityHealth(1);
 
                     //uh oh, something got out...
                     EntityCreature.attemptToPossessCreaturesAroundBlock(acceptingPlayer.worldObj, (int)acceptingPlayer.posX, (int)acceptingPlayer.posY, (int)acceptingPlayer.posZ, 1, 16);
