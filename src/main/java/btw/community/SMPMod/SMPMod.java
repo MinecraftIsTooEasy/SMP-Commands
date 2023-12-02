@@ -13,6 +13,7 @@ public class SMPMod extends BTWAddon
     //to initialize and read a settings file
     private PropertyManager settings;
     public static boolean isTpaEnabled;
+    public static boolean areTpaExternalitiesEnabled;
     private static SMPMod instance;
 
     private SMPMod()
@@ -48,7 +49,7 @@ public class SMPMod extends BTWAddon
         AddonHandler.logMessage("Loading SMP Mod Server properties");
 
         this.registerProperty("Enable-TPA-commands", "True", "Allows players to use the /tpa [playername], /tpaccept [playername], and /tpcancel commands.");
-
+        this.registerProperty("Enable-TPA-Externalities", "True","Do you accept the consequences?");
     }
     private Map<String, String> propertyValues;
     @Override
@@ -62,6 +63,7 @@ public class SMPMod extends BTWAddon
 //        System.out.println("IS TPA ENABLED? "+this.propertyValues.get("Enable-TPA-commands"));
 
         this.setTpaEnabled(Boolean.parseBoolean(this.propertyValues.get("Enable-TPA-commands")));
+        this.setTpaExternalitiesEnabled(Boolean.parseBoolean(this.propertyValues.get("Enable-TPA-Externalities")));
 
         //TESTER VVVV
 //        System.out.println("IS TPA ENABLED after setting? "+this.getTpaEnabled());
@@ -74,6 +76,15 @@ public class SMPMod extends BTWAddon
     public boolean getTpaEnabled()
     {
         return isTpaEnabled;
+    }
+
+    public void setTpaExternalitiesEnabled(boolean b)
+    {
+        this.areTpaExternalitiesEnabled = b;
+    }
+    public boolean getTpaExternalitiesEnabled()
+    {
+        return areTpaExternalitiesEnabled;
     }
 
 }

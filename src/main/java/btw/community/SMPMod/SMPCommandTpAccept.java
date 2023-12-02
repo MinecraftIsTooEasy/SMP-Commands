@@ -1,5 +1,6 @@
 package btw.community.SMPMod;
 
+import btw.client.fx.BTWEffectManager;
 import net.minecraft.src.*;
 
 import java.util.Optional;
@@ -76,17 +77,48 @@ public class SMPCommandTpAccept extends CommandBase
 
             if (tpaRequestName.equals(acceptingPlayerName))
             {
+//                teleportingPlayer.foodStats.addExhaustion(1000);
+//                teleportingPlayer.foodStats.addStats(-65,1);
+
+                if (SMPMod.getInstance().getTpaExternalitiesEnabled())
+                {
+                    if (!(teleportingPlayer.foodStats.getFoodLevel() <= 1))
+                    {
+                        teleportingPlayer.foodStats.setFoodLevel(1);
+                    }
+                    teleportingPlayer.performHurtAnimation();
+
+                    acceptingPlayer.setEntityHealth(acceptingPlayer.getHealth()-10);
+                    acceptingPlayer.performHurtAnimation();
+                    acceptingPlayer.worldObj.playSoundAtEntity( acceptingPlayer,
+                            "random.classic_hurt", 0.5F,
+                            1F + .3F * 0.1F);
+
+                    //uh oh, something got out...
+                    EntityCreature.attemptToPossessCreaturesAroundBlock(acceptingPlayer.worldObj, (int)acceptingPlayer.posX, (int)acceptingPlayer.posY, (int)acceptingPlayer.posZ, 1, 16);
+
+                }
+
+
                 acceptingPlayer.addChatMessage("Teleported "+teleportingPlayerName+" to you.");
                 teleportingPlayer.addChatMessage("Teleported you to "+acceptingPlayerName+".");
 
                 teleportingPlayer.mountEntity((Entity)null);
                 teleportingPlayer.playerNetServerHandler.setPlayerLocation(acceptingPlayer.posX, acceptingPlayer.posY, acceptingPlayer.posZ, acceptingPlayer.rotationYaw, acceptingPlayer.rotationPitch);
                 ((EntityPlayerMPAccessor)teleportingPlayer).setTpaRequestName(""); //prevents the accepter from spam-teleporting
+
+                if (SMPMod.getInstance().getTpaExternalitiesEnabled())
+                {
+                    //a soul escapes, plays this sound
+                    acceptingPlayer.worldObj.playAuxSFX( BTWEffectManager.GHAST_MOAN_EFFECT_ID,
+                            MathHelper.floor_double( acceptingPlayer.posX ), MathHelper.floor_double( acceptingPlayer.posY ), MathHelper.floor_double( acceptingPlayer.posZ ), 0 );
+                }
             }
             else
             {
                 acceptingPlayer.addChatMessage("No active teleport requests found from "+teleportingPlayerName+".");
             }
+
 
         }
 
