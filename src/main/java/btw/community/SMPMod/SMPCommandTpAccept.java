@@ -86,13 +86,17 @@ public class SMPCommandTpAccept extends CommandBase
                     {
                         teleportingPlayer.foodStats.setFoodLevel(1);
                     }
-                    teleportingPlayer.performHurtAnimation();
 
-                    acceptingPlayer.setEntityHealth(acceptingPlayer.getHealth()-10);
-                    acceptingPlayer.performHurtAnimation();
+//                    teleportingPlayer.performHurtAnimation();
+//                    acceptingPlayer.performHurtAnimation();
+
                     acceptingPlayer.worldObj.playSoundAtEntity( acceptingPlayer,
                             "random.classic_hurt", 0.5F,
                             1F + .3F * 0.1F);
+
+//                    acceptingPlayer.setEntityHealth(acceptingPlayer.getHealth()-10);
+                    acceptingPlayer.attackEntityFrom(DamageSource.generic, 10);
+                    teleportingPlayer.attackEntityFrom(DamageSource.generic, 0);
 
                     //uh oh, something got out...
                     EntityCreature.attemptToPossessCreaturesAroundBlock(acceptingPlayer.worldObj, (int)acceptingPlayer.posX, (int)acceptingPlayer.posY, (int)acceptingPlayer.posZ, 1, 16);

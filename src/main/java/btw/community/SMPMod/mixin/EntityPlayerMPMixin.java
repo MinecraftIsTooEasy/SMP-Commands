@@ -25,4 +25,5 @@ public abstract class EntityPlayerMPMixin extends EntityPlayer implements Entity
     {
         return Optional.ofNullable(tpaRequestPlayerName);
     }
+
 }
