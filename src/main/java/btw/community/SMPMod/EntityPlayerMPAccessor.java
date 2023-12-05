@@ -13,4 +13,7 @@ public interface EntityPlayerMPAccessor
     {
         return Optional.empty();
     }
+
+    void setHasBeenTeleported(boolean hasBeenTeleported);
+    boolean getHasBeenTeleported();
 }

@@ -3,6 +3,7 @@ package btw.community.SMPMod;
 import btw.client.fx.BTWEffectManager;
 import net.minecraft.src.*;
 
+import java.util.List;
 import java.util.Optional;
 
 public class SMPCommandTpAccept extends CommandBase
@@ -42,9 +43,8 @@ public class SMPCommandTpAccept extends CommandBase
         }
         else
         {
-            EntityPlayerMP acceptingPlayer;
             //gets the person accepting the request (the person sending the message) as a EntityPlayerMP object
-            acceptingPlayer = getCommandSenderAsPlayer(sender);
+            EntityPlayerMP acceptingPlayer = getCommandSenderAsPlayer(sender);
 
             if (acceptingPlayer == null)
             {
@@ -58,7 +58,7 @@ public class SMPCommandTpAccept extends CommandBase
                 throw new PlayerNotFoundException();
             }
 
-            if (teleportingPlayer.worldObj != teleportingPlayer.worldObj)
+            if (teleportingPlayer.worldObj != acceptingPlayer.worldObj)
             {
                 notifyAdmins(sender, "commands.tp.notSameDimension", new Object[0]);
                 return;
@@ -82,9 +82,9 @@ public class SMPCommandTpAccept extends CommandBase
 
                 if (SMPMod.getInstance().getTpaExternalitiesEnabled())
                 {
-                    if (!(teleportingPlayer.foodStats.getFoodLevel() <= 1))
+                    if (!(teleportingPlayer.foodStats.getFoodLevel() <= 3))
                     {
-                        teleportingPlayer.foodStats.setFoodLevel(1);
+                        teleportingPlayer.foodStats.setFoodLevel(3);
                     }
 
 //                    teleportingPlayer.performHurtAnimation();
@@ -95,14 +95,19 @@ public class SMPCommandTpAccept extends CommandBase
                             1F + .3F * 0.1F);
 
 //                    acceptingPlayer.setEntityHealth(acceptingPlayer.getHealth()-10);
-                    acceptingPlayer.attackEntityFrom(DamageSource.generic, 10);
-                    teleportingPlayer.setEntityHealth(1);
+                    //acceptingPlayer.attackEntityFrom(SMPMod.tpaDamageSource, 10);
+
+                    teleportingPlayer.attackEntityFrom(DamageSource.generic, acceptingPlayer.getHealth() - 1);
+                    if (acceptingPlayer.getHealth() > 10)
+                    {
+                        acceptingPlayer.attackEntityFrom(DamageSource.generic, acceptingPlayer.getHealth() - 10);
+                    }
+
+                    ((EntityPlayerMPAccessor) teleportingPlayer).setHasBeenTeleported(true);
 
                     //uh oh, something got out...
                     EntityCreature.attemptToPossessCreaturesAroundBlock(acceptingPlayer.worldObj, (int)acceptingPlayer.posX, (int)acceptingPlayer.posY, (int)acceptingPlayer.posZ, 1, 16);
-
                 }
-
 
                 acceptingPlayer.addChatMessage("Teleported "+teleportingPlayerName+" to you.");
                 teleportingPlayer.addChatMessage("Teleported you to "+acceptingPlayerName+".");
@@ -122,9 +127,19 @@ public class SMPCommandTpAccept extends CommandBase
             {
                 acceptingPlayer.addChatMessage("No active teleport requests found from "+teleportingPlayerName+".");
             }
-
-
         }
+    }
 
+    public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
+    {
+        return par2ArrayOfStr.length != 1 ? null : getListOfStringsMatchingLastWord(par2ArrayOfStr, par1ICommandSender instanceof EntityPlayerMP ? ((EntityPlayerMPAccessor) par1ICommandSender).getTpaRequestName().orElse("") : "");
+    }
+
+    /**
+     * Return whether the specified command parameter index is a username parameter.
+     */
+    public boolean isUsernameIndex(String[] par1ArrayOfStr, int par2)
+    {
+        return par2 == 0;
     }
 }
