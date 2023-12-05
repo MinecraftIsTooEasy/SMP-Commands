@@ -97,7 +97,7 @@ public class SMPCommandTpAccept extends CommandBase
 //                    acceptingPlayer.setEntityHealth(acceptingPlayer.getHealth()-10);
                     //acceptingPlayer.attackEntityFrom(SMPMod.tpaDamageSource, 10);
 
-                    teleportingPlayer.attackEntityFrom(DamageSource.generic, acceptingPlayer.getHealth() - 1);
+                    teleportingPlayer.attackEntityFrom(DamageSource.generic, teleportingPlayer.getHealth() - 1);
                     if (acceptingPlayer.getHealth() > 10)
                     {
                         acceptingPlayer.attackEntityFrom(DamageSource.generic, acceptingPlayer.getHealth() - 10);
