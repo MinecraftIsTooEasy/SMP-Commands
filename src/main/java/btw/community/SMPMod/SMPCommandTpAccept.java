@@ -107,6 +107,9 @@ public class SMPCommandTpAccept extends CommandBase
 
                     //uh oh, something got out...
                     EntityCreature.attemptToPossessCreaturesAroundBlock(acceptingPlayer.worldObj, (int)acceptingPlayer.posX, (int)acceptingPlayer.posY, (int)acceptingPlayer.posZ, 1, 16);
+
+                    //teleporting player drops all items
+                    teleportingPlayer.inventory.dropAllItems();
                 }
 
                 acceptingPlayer.addChatMessage("Teleported "+teleportingPlayerName+" to you.");
