@@ -1,6 +1,9 @@
 package btw.community.SMPMod;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
+
+import java.util.List;
 
 //a player sends a teleport request by typing /tpa [playername]
 
@@ -77,5 +80,18 @@ public class SMPCommandTpRequest extends CommandBase
             targetPlayer.addChatMessage(teleportingPlayer.getEntityName()+" sent you a teleport request.");
 
         }
+    }
+
+    public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
+    {
+        return par2ArrayOfStr.length >= 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, MinecraftServer.getServer().getAllUsernames()) : null;
+    }
+
+    /**
+     * Return whether the specified command parameter index is a username parameter.
+     */
+    public boolean isUsernameIndex(String[] par1ArrayOfStr, int par2)
+    {
+        return par2 == 0;
     }
 }

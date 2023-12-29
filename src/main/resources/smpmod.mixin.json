@@ -6,9 +6,6 @@
   "mixins": [
     "EntityPlayerMPMixin"
   ],
-  "client": [
-    "EntityPlayerMPMixin"
-  ],
   "injectors": {
     "defaultRequire": 1
   }

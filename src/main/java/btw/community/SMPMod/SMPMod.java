@@ -1,10 +1,9 @@
 package btw.community.SMPMod;
 
 import btw.AddonHandler;
-import net.minecraft.src.ICommand;
-import net.minecraft.src.PropertyManager;
 import btw.BTWAddon;
-import java.io.File;
+import net.minecraft.src.PropertyManager;
+
 import java.util.Map;
 
 public class SMPMod extends BTWAddon
