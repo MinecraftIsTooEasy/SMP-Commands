@@ -9,3 +9,13 @@ Version 1.0:
     > These can be used without op permissions, allowing players to manage their own teleports without needing to call an admin
 
 - Added a new config file, SMPMod.properties, that lets server hosts disable the tpa commands
+
+- Added an "externalities" config that hosts can enable to punish players for using /tpaccept.
+    - CAUTION: Teleporting players will have their inventories wiped!
+
+- Added the /deaths command that shows players how many times they have died in a given world
+
+- Added the /smite command that allows admins to bring divine punishment down upon players
+
+- Added the /tpabove [playername] [# of blocks] command that allows admins to teleport above or below players (stealth spectating)
+    - Defaults to 20 blocks above target player

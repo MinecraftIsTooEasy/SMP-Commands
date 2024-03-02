@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SMP_Commands_CE.btw.iml" filepath="$PROJECT_DIR$/.idea/modules/SMP_Commands_CE.btw.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SMP_Commands_CE.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SMP_Commands_CE.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SMP_Commands_CE.test.iml" filepath="$PROJECT_DIR$/.idea/modules/SMP_Commands_CE.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/btw.community.SMP_Commands_CE.btw.iml" filepath="$PROJECT_DIR$/.idea/modules/btw.community.SMP_Commands_CE.btw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/btw.community.SMP_Commands_CE.main.iml" filepath="$PROJECT_DIR$/.idea/modules/btw.community.SMP_Commands_CE.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/btw.community.SMP_Commands_CE.test.iml" filepath="$PROJECT_DIR$/.idea/modules/btw.community.SMP_Commands_CE.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.fabricmc.SMP_Commands_CE.btw.iml" filepath="$PROJECT_DIR$/.idea/modules/net.fabricmc.SMP_Commands_CE.btw.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.fabricmc.SMP_Commands_CE.main.iml" filepath="$PROJECT_DIR$/.idea/modules/net.fabricmc.SMP_Commands_CE.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.fabricmc.SMP_Commands_CE.test.iml" filepath="$PROJECT_DIR$/.idea/modules/net.fabricmc.SMP_Commands_CE.test.iml" />

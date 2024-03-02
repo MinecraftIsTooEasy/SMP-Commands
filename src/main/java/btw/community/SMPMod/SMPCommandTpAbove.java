@@ -1,6 +1,9 @@
 package btw.community.SMPMod;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
+
+import java.util.List;
 
 public class SMPCommandTpAbove extends CommandBase
 {
@@ -104,5 +107,18 @@ public class SMPCommandTpAbove extends CommandBase
         {
             return false; // If an exception is caught, it's not a valid integer
         }
+    }
+
+    public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
+    {
+        return par2ArrayOfStr.length >= 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, MinecraftServer.getServer().getAllUsernames()) : null;
+    }
+
+    /**
+     * Return whether the specified command parameter index is a username parameter.
+     */
+    public boolean isUsernameIndex(String[] par1ArrayOfStr, int par2)
+    {
+        return par2 == 0;
     }
 }

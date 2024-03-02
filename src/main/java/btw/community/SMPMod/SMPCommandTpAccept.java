@@ -1,6 +1,7 @@
 package btw.community.SMPMod;
 
 import btw.client.fx.BTWEffectManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
 
 import java.util.List;
@@ -135,7 +136,7 @@ public class SMPCommandTpAccept extends CommandBase
 
     public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
     {
-        return par2ArrayOfStr.length != 1 ? null : getListOfStringsMatchingLastWord(par2ArrayOfStr, par1ICommandSender instanceof EntityPlayerMP ? ((EntityPlayerMPAccessor) par1ICommandSender).getTpaRequestName().orElse("") : "");
+        return par2ArrayOfStr.length >= 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, MinecraftServer.getServer().getAllUsernames()) : null;
     }
 
     /**

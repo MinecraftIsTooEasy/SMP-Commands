@@ -77,6 +77,7 @@ public class SMPCommandTpRequest extends CommandBase
 
             ((EntityPlayerMPAccessor)teleportingPlayer).setTpaRequestName(targetPlayer.getEntityName());
             teleportingPlayer.addChatMessage("You sent a teleport request to "+targetPlayerName+".");
+            teleportingPlayer.addChatMessage("CAUTION: Your inventory will be WIPED!! /tpcancel to prevent teleporting!");
             targetPlayer.addChatMessage(teleportingPlayer.getEntityName()+" sent you a teleport request.");
 
         }
