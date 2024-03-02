@@ -36,7 +36,7 @@ public class SMPMod extends BTWAddon
         registerAddonCommand(new SMPCommandTpAccept());
         registerAddonCommand(new SMPCommandTpCancel());
         registerAddonCommand(new SMPCommandTpAbove());
-//        registerAddonCommand(new SMPCommandSmite());
+        registerAddonCommand(new SMPCommandSmite());
 //        AddonHandler.registerCommand(new SMPCommandTpCancel(), false);
 //        AddonHandler.registerCommand(new SMPCommandTpAccept(), false);
 //        AddonHandler.registerCommand(new SMPCommandTpRequest(), false);
