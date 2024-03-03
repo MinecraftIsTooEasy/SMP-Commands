@@ -37,6 +37,8 @@ public class SMPMod extends BTWAddon
         registerAddonCommand(new SMPCommandTpCancel());
         registerAddonCommand(new SMPCommandTpAbove());
         registerAddonCommand(new SMPCommandSmite());
+        registerAddonCommand(new SMPCommandSpawn());
+        registerAddonCommand(new SMPCommandDeaths());
 //        AddonHandler.registerCommand(new SMPCommandTpCancel(), false);
 //        AddonHandler.registerCommand(new SMPCommandTpAccept(), false);
 //        AddonHandler.registerCommand(new SMPCommandTpRequest(), false);
@@ -53,7 +55,7 @@ public class SMPMod extends BTWAddon
         AddonHandler.logMessage("Loading SMP Mod Server properties");
 
         this.registerProperty("Enable-TPA-commands", "True", "Allows players to use the /tpa [playername], /tpaccept [playername], and /tpcancel commands.");
-        this.registerProperty("Enable-TPA-Externalities", "True","Do you accept the consequences? Wipe inventory on /tpaccept and other punishments...");
+        this.registerProperty("Enable-TPA-Externalities", "False","Do you accept the consequences? Wipe inventory on /tpaccept and other punishments...");
     }
     private Map<String, String> propertyValues;
     @Override
