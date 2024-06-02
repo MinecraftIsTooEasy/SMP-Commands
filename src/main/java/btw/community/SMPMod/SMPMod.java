@@ -42,11 +42,19 @@ public class SMPMod extends BTWAddon
 //        AddonHandler.registerCommand(new SMPCommandTpCancel(), false);
 //        AddonHandler.registerCommand(new SMPCommandTpAccept(), false);
 //        AddonHandler.registerCommand(new SMPCommandTpRequest(), false);
+
+
     }
 
     @Override
     public void preInitialize() {
         initializeServerProperties();
+        initializeDataBaseConnection();
+    }
+
+    public void initializeDataBaseConnection()
+    {
+// CONNECT TO A MONGODB DATABASE!!!
     }
 
     //Methods relating to the properties file
