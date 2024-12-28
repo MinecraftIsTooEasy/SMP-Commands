@@ -1,15 +1,17 @@
 package btw.community.SMPMod;
 
-import net.minecraft.src.ICommand;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
+import net.minecraft.*;
 
-import java.util.List;
 public class SMPCommandDeaths extends CommandBase
 {
     public String getCommandName()
     {
         return "deaths";
+    }
+
+    @Override
+    public String getCommandUsage(ICommandSender iCommandSender) {
+        return "";
     }
 
     /**
@@ -38,9 +40,9 @@ public class SMPCommandDeaths extends CommandBase
         }
         else
         {
-            EntityPlayerMP senderPlayer = getCommandSenderAsPlayer(sender);
+            ServerPlayer senderPlayer = getCommandSenderAsPlayer(sender);
 
-            senderPlayer.addChatMessage("You have HC spawned "+senderPlayer.deathCount+" times!");
+            senderPlayer.addChatMessage("You have HC spawned " + senderPlayer.deathTime + " times!");
 
         }
     }

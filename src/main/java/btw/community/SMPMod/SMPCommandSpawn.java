@@ -1,16 +1,18 @@
 package btw.community.SMPMod;
 
-import net.minecraft.src.ICommand;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
+import net.minecraft.*;
 
-import java.util.List;
 
 public class SMPCommandSpawn extends CommandBase
 {
     public String getCommandName()
     {
         return "spawn";
+    }
+
+    @Override
+    public String getCommandUsage(ICommandSender iCommandSender) {
+        return "";
     }
 
     @Override
@@ -29,11 +31,11 @@ public class SMPCommandSpawn extends CommandBase
 
         }
 
-        EntityPlayerMP teleportingPlayer = getCommandSenderAsPlayer(sender);
+        ServerPlayer teleportingPlayer = getCommandSenderAsPlayer(sender);
 
         teleportingPlayer.addChatMessage("Teleported you to spawn.");
 
-        if (!(teleportingPlayer.worldObj.getWorldInfo().getDimension() == 0))
+        if (!(teleportingPlayer.worldObj.getWorldInfo().getDimensionId() == 0))
         {
             //TESTER vvvv
 //            System.out.println("HIIIII are you in the overworld?");

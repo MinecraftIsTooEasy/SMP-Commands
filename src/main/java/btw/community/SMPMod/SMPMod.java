@@ -1,104 +1,54 @@
 package btw.community.SMPMod;
 
-import btw.AddonHandler;
-import btw.BTWAddon;
-import net.minecraft.src.PropertyManager;
+import net.fabricmc.api.ModInitializer;
+import net.minecraft.PropertyManager;
+import net.xiaoyu233.fml.config.ConfigRegistry;
+import net.xiaoyu233.fml.reload.event.MITEEvents;
 
-import java.util.Map;
+import java.util.Optional;
 
-public class SMPMod extends BTWAddon
-{
-
+public class SMPMod implements ModInitializer {
     //to initialize and read a settings file
     private PropertyManager settings;
-    public static boolean isTpaEnabled;
-    public static boolean areTpaExternalitiesEnabled;
+    public static boolean isTpaEnabled = SMPConfig.configItems.Enable_TPA_commands.get();
+    public static boolean areTpaExternalitiesEnabled = SMPConfig.configItems.Enable_TPA_Externalities.get();
     private static SMPMod instance;
+    public static int CONFIG_VERSION = 1;
+    private final ConfigRegistry configRegistry = new ConfigRegistry(SMPConfig.ROOT, SMPConfig.CONFIG_FILE);
 
-    private SMPMod()
-    {
-        super("SMP Commands", "1.0 :D", "SMPMod");
-    }
-
-    public static SMPMod getInstance()
-    {
+    public static SMPMod getInstance() {
         if (instance == null)
             instance = new SMPMod();
         return instance;
     }
 
-    @Override
-    public void initialize()
-    {
-        AddonHandler.logMessage(this.getName() + " Version " + this.getVersionString() + " Initializing...");
-//        this.initializeServerProperties();
-        registerAddonCommand(new SMPCommandTpRequest());
-        registerAddonCommand(new SMPCommandTpAccept());
-        registerAddonCommand(new SMPCommandTpCancel());
-        registerAddonCommand(new SMPCommandTpAbove());
-        registerAddonCommand(new SMPCommandSmite());
-        registerAddonCommand(new SMPCommandSpawn());
-        registerAddonCommand(new SMPCommandDeaths());
-//        AddonHandler.registerCommand(new SMPCommandTpCancel(), false);
-//        AddonHandler.registerCommand(new SMPCommandTpAccept(), false);
-//        AddonHandler.registerCommand(new SMPCommandTpRequest(), false);
 
-
+    public void setTpaEnabled(boolean b) {
+        this.isTpaEnabled = SMPConfig.configItems.Enable_TPA_commands.get();
     }
 
-    @Override
-    public void preInitialize() {
-        initializeServerProperties();
-        initializeDataBaseConnection();
-    }
-
-    public void initializeDataBaseConnection()
-    {
-// CONNECT TO A MONGODB DATABASE!!!
-    }
-
-    //Methods relating to the properties file
-    public void initializeServerProperties()
-    {
-        AddonHandler.logMessage("Loading SMP Mod Server properties");
-
-        this.registerProperty("Enable-TPA-commands", "True", "Allows players to use the /tpa [playername], /tpaccept [playername], and /tpcancel commands.");
-        this.registerProperty("Enable-TPA-Externalities", "False","Do you accept the consequences? Wipe inventory on /tpaccept and other punishments...");
-    }
-    private Map<String, String> propertyValues;
-    @Override
-    public void handleConfigProperties(Map<String, String> propertyValues)
-    {
-        this.propertyValues = propertyValues;
-
-        //TESTER VVV
-//        System.out.println("IS TPA ENABLED? "+this.propertyValues.get("Enable-TPA-commands"));
-//        System.out.println("IS TPA ENABLED? "+this.propertyValues.get("Enable-TPA-commands"));
-//        System.out.println("IS TPA ENABLED? "+this.propertyValues.get("Enable-TPA-commands"));
-
-        this.setTpaEnabled(Boolean.parseBoolean(this.propertyValues.get("Enable-TPA-commands")));
-        this.setTpaExternalitiesEnabled(Boolean.parseBoolean(this.propertyValues.get("Enable-TPA-Externalities")));
-
-        //TESTER VVVV
-//        System.out.println("IS TPA ENABLED after setting? "+this.getTpaEnabled());
-    }
-
-    public void setTpaEnabled(boolean b)
-    {
-        this.isTpaEnabled = b;
-    }
-    public boolean getTpaEnabled()
-    {
+    public boolean getTpaEnabled() {
         return isTpaEnabled;
     }
 
-    public void setTpaExternalitiesEnabled(boolean b)
-    {
+    public void setTpaExternalitiesEnabled(boolean b) {
         this.areTpaExternalitiesEnabled = b;
     }
-    public boolean getTpaExternalitiesEnabled()
-    {
+
+    public boolean getTpaExternalitiesEnabled() {
         return areTpaExternalitiesEnabled;
     }
 
+    @Override
+    public void onInitialize() {
+        registerAllEvents();
+    }
+
+    public static void registerAllEvents() {
+        MITEEvents.MITE_EVENT_BUS.register(new SMPEvent());
+    }
+
+    public Optional<ConfigRegistry> createConfig() {
+        return Optional.of(this.configRegistry);
+    }
 }

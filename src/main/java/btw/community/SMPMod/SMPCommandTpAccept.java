@@ -1,8 +1,7 @@
 package btw.community.SMPMod;
 
-import btw.client.fx.BTWEffectManager;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
+import net.minecraft.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +11,11 @@ public class SMPCommandTpAccept extends CommandBase
     public String getCommandName()
     {
         return "tpaccept";
+    }
+
+    @Override
+    public String getCommandUsage(ICommandSender iCommandSender) {
+        return "";
     }
 
     /**
@@ -44,15 +48,15 @@ public class SMPCommandTpAccept extends CommandBase
         }
         else
         {
-            //gets the person accepting the request (the person sending the message) as a EntityPlayerMP object
-            EntityPlayerMP acceptingPlayer = getCommandSenderAsPlayer(sender);
+            //gets the person accepting the request (the person sending the message) as a ServerPlayer object
+            ServerPlayer acceptingPlayer = getCommandSenderAsPlayer(sender);
 
             if (acceptingPlayer == null)
             {
                 throw new PlayerNotFoundException();
             }
 
-            EntityPlayerMP teleportingPlayer = func_82359_c(sender, arguments[arguments.length - 1]);
+            ServerPlayer teleportingPlayer = getPlayer(sender, arguments[arguments.length - 1]);
 
             if (teleportingPlayer == null)
             {
@@ -83,10 +87,10 @@ public class SMPCommandTpAccept extends CommandBase
 
                 if (SMPMod.getInstance().getTpaExternalitiesEnabled())
                 {
-                    if (!(teleportingPlayer.foodStats.getFoodLevel() <= 3))
-                    {
-                        teleportingPlayer.foodStats.setFoodLevel(3);
-                    }
+//                    if (!(teleportingPlayer.foodStats.getFoodLevel() <= 3))
+//                    {
+//                        teleportingPlayer.foodStats.setFoodLevel(3);
+//                    }
 
 //                    teleportingPlayer.performHurtAnimation();
 //                    acceptingPlayer.performHurtAnimation();
@@ -98,16 +102,16 @@ public class SMPCommandTpAccept extends CommandBase
 //                    acceptingPlayer.setEntityHealth(acceptingPlayer.getHealth()-10);
                     //acceptingPlayer.attackEntityFrom(SMPMod.tpaDamageSource, 10);
 
-                    teleportingPlayer.attackEntityFrom(DamageSource.generic, teleportingPlayer.getHealth() - 1);
+                    teleportingPlayer.attackEntityFrom(new Damage(DamageSource.generic, teleportingPlayer.getHealth() - 1));
                     if (acceptingPlayer.getHealth() > 10)
                     {
-                        acceptingPlayer.attackEntityFrom(DamageSource.generic, acceptingPlayer.getHealth() - 10);
+                        acceptingPlayer.attackEntityFrom(new Damage(DamageSource.generic, teleportingPlayer.getHealth() - 10));
                     }
 
                     ((EntityPlayerMPAccessor) teleportingPlayer).setHasBeenTeleported(true);
 
                     //uh oh, something got out...
-                    EntityCreature.attemptToPossessCreaturesAroundBlock(acceptingPlayer.worldObj, (int)acceptingPlayer.posX, (int)acceptingPlayer.posY, (int)acceptingPlayer.posZ, 1, 16);
+//                    EntityCreature.attemptToPossessCreaturesAroundBlock(acceptingPlayer.worldObj, (int)acceptingPlayer.posX, (int)acceptingPlayer.posY, (int)acceptingPlayer.posZ, 1, 16);
 
                     //teleporting player drops all items
                     teleportingPlayer.inventory.dropAllItems();
@@ -123,7 +127,7 @@ public class SMPCommandTpAccept extends CommandBase
                 if (SMPMod.getInstance().getTpaExternalitiesEnabled())
                 {
                     //a soul escapes, plays this sound
-                    acceptingPlayer.worldObj.playAuxSFX( BTWEffectManager.GHAST_MOAN_EFFECT_ID,
+                    acceptingPlayer.worldObj.playAuxSFX(EnumParticle.explode.ordinal(),
                             MathHelper.floor_double( acceptingPlayer.posX ), MathHelper.floor_double( acceptingPlayer.posY ), MathHelper.floor_double( acceptingPlayer.posZ ), 0 );
                 }
             }

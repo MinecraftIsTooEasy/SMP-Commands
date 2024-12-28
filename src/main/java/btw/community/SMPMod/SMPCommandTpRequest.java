@@ -1,7 +1,7 @@
 package btw.community.SMPMod;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
+import net.minecraft.*;
 
 import java.util.List;
 
@@ -13,6 +13,11 @@ public class SMPCommandTpRequest extends CommandBase
     public String getCommandName()
     {
         return "tpa";
+    }
+
+    @Override
+    public String getCommandUsage(ICommandSender iCommandSender) {
+        return "";
     }
 
     /**
@@ -50,7 +55,7 @@ public class SMPCommandTpRequest extends CommandBase
         }
         else
         {
-            EntityPlayerMP teleportingPlayer;
+            ServerPlayer teleportingPlayer;
             //gets the request sender (the person sending the message) as a EntityPlayerMP object
             teleportingPlayer = getCommandSenderAsPlayer(sender);
 
@@ -60,7 +65,7 @@ public class SMPCommandTpRequest extends CommandBase
             }
 
             //gets the target of the tp request
-            EntityPlayerMP targetPlayer = func_82359_c(sender, arguments[arguments.length - 1]);
+            ServerPlayer targetPlayer = getPlayer(sender, arguments[arguments.length - 1]);
 
             if (targetPlayer == null)
             {

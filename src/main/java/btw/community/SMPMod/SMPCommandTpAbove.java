@@ -1,7 +1,7 @@
 package btw.community.SMPMod;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
+import net.minecraft.*;
 
 import java.util.List;
 
@@ -10,6 +10,11 @@ public class SMPCommandTpAbove extends CommandBase
     public String getCommandName()
     {
         return "tpabove";
+    }
+
+    @Override
+    public String getCommandUsage(ICommandSender iCommandSender) {
+        return "";
     }
 
     @Override
@@ -28,9 +33,9 @@ public class SMPCommandTpAbove extends CommandBase
         {
             // this is /tpabove [playername] (defaults to 20 blocks above the player!)
 
-            EntityPlayerMP teleportingPlayer = getCommandSenderAsPlayer(sender);
+            ServerPlayer teleportingPlayer = getCommandSenderAsPlayer(sender);
 
-            EntityPlayerMP targetPlayer = func_82359_c(sender, arguments[arguments.length - 1]);
+            ServerPlayer targetPlayer = getPlayer(sender, arguments[arguments.length - 1]);
 
             if (targetPlayer == null)
             {
@@ -56,9 +61,9 @@ public class SMPCommandTpAbove extends CommandBase
         {
             // this is /tpabove [playername] [number of blocks above]
 
-            EntityPlayerMP teleportingPlayer = getCommandSenderAsPlayer(sender);
+            ServerPlayer teleportingPlayer = getCommandSenderAsPlayer(sender);
 
-            EntityPlayerMP targetPlayer = func_82359_c(sender, arguments[arguments.length - 2]);
+            ServerPlayer targetPlayer = getPlayer(sender, arguments[arguments.length - 2]);
 
             if (targetPlayer == null)
             {

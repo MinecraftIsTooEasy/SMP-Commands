@@ -1,12 +1,17 @@
 package btw.community.SMPMod;
 
-import net.minecraft.src.*;
+import net.minecraft.*;
 
 public class SMPCommandTpCancel extends CommandBase
 {
     public String getCommandName()
     {
         return "tpcancel";
+    }
+
+    @Override
+    public String getCommandUsage(ICommandSender iCommandSender) {
+        return "";
     }
 
     /**
@@ -41,8 +46,8 @@ public class SMPCommandTpCancel extends CommandBase
         else
         {
 
-            EntityPlayerMP cancelingPlayer;
-            //gets the person canceling the request (the person sending the message) as a EntityPlayerMP object
+            ServerPlayer cancelingPlayer;
+            //gets the person canceling the request (the person sending the message) as a ServerPlayer object
             cancelingPlayer = getCommandSenderAsPlayer(sender);
 
 //            if (cancelingPlayer == null)
@@ -52,7 +57,7 @@ public class SMPCommandTpCancel extends CommandBase
 
             cancelingPlayer.addChatMessage("Canceled active teleport request.");
 
-            ((EntityPlayerMPAccessor)cancelingPlayer).setTpaRequestName("");
+            ((EntityPlayerMPAccessor) cancelingPlayer).setTpaRequestName("");
         }
     }
 }

@@ -1,7 +1,7 @@
 package btw.community.SMPMod;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
+import net.minecraft.*;
 
 import java.util.List;
 
@@ -10,6 +10,11 @@ public class SMPCommandSmite extends CommandBase
     public String getCommandName()
     {
         return "smite";
+    }
+
+    @Override
+    public String getCommandUsage(ICommandSender iCommandSender) {
+        return "";
     }
 
     @Override
@@ -26,7 +31,7 @@ public class SMPCommandSmite extends CommandBase
         }
         else
         {
-            EntityPlayerMP smotePlayer = func_82359_c(sender, arguments[arguments.length - 1]);
+            ServerPlayer smotePlayer = getPlayer(sender, arguments[arguments.length - 1]);
 
             if (smotePlayer == null)
             {
